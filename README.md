@@ -18,32 +18,32 @@
     - in functie de cati pini o sa mai am liberi as vrea sa incerc si sa conectez un modul wifi prin care sa pot da comezi de printare pentru diferite desene presetate
 
 ## Diagrama de conectare a motoarelor la shield:
-![Diagrama de conectare](./Wiring_diagram.jpg)
+![Diagrama de conectare](./Photos/Wiring_diagram.jpg)
 
 
 ## Update 1:
 - Pentru inceput, am desfacut cele 2 DVD Writere pentru a putea extrage motoarele pas cu pas din ele
 
-![Poza drivere](./DVD_Writere_desfacute.jpeg)
-![Poza motor pas cu pas](./Motor_pas_cu_pas.jpeg)
-![Poza motoare pas cu pas](./Motoare.jpeg)
+![Poza drivere](./Photos/DVD_Writere_desfacute.jpeg)
+![Poza motor pas cu pas](./Photos/Motor_pas_cu_pas.jpeg)
+![Poza motoare pas cu pas](./Photos/Motoare.jpeg)
 
 - Dupa care am incercat si am scris un code de test pentru a verifica functionalitatea motoarelor pas cu pas
 
-![Test stepper](./Testare_miscare_pas_cu_pas.jpeg)
+![Test stepper](./Photos/Testare_miscare_pas_cu_pas.jpeg)
 
 - Pentru testul final am facut un test fit pentru a imi face o idee cum o sa stea si o sa functioneze motoarele (se poate observa in video adaugat: Video_test_fit.mp4)
 
-![Test fit](./Test_fit.jpg)
+![Test fit](./Photos/Test_fit.jpg)
 
 
 - Pentru montajul fizic m-am folosit de carcasele de DVD Writere si am adaugat si un ecran lcd monocrom care sa afiseze mesaje legate de procesul de plottare
 
-![Montaj final](./Montaj_fina+ecran.jpg)
+![Montaj final](./Photos/Montaj_fina+ecran.jpg)
 
 - Am folosit si un modul wifi (NodeMCU) care se foloseste de protocolul de comunicatie UART pentru a comunica cu Arduino si a primi comenzi suplimentare pentru folosirea manuala
 
-![Modul Wifi](./Modul_NodeMCU.jpg)
+![Modul Wifi](./Photos/Modul_NodeMCU.jpg)
 
 
 ## Mod de functionare:
@@ -52,7 +52,7 @@
 
 - Folosind un program care comunica cu Arduino pe baza portului serial prin care este conectat cu calculatorul, acesta citeste un fisier GCODE (care contine informatiile pentru a misca motoarele) si trimite linie cu linie comenzile catre Arduino care le interpreteaza si misca motoarele in functie de acestea
 
-![Program trimitere info](./Gctrl.jpg)
+![Program trimitere info](./Photos/Gctrl.jpg)
 
 ### Modul de functionare manual:
 
@@ -62,5 +62,5 @@
     - Fie cu ajutorul a 4 butaone care incrementeaza/decrementeazaz motoarele cu 2mm pe apasare si un buton pentru ridicarea si coborarea pixului
     - Cu ajutorul a 2 slidere prin care pot sa pozitionez exact distanta la care sa fie unul din cele 2 motoare si un boton care ridica si coboara pixul
     - Cu ajutorul unui joystick prin care pot sa mut capul de desenare pe cele 2 axe X si Y de control si un buton de ridicare si coborare al pixului
-    ![Functionare manuala](./Functionare_manuala1.jpg)
-    ![Functionare manuala](./Functionare_manuala2.jpg) 
+    ![Functionare manuala](./Photos/Functionare_manuala1.jpg)
+    ![Functionare manuala](./Photos/Functionare_manuala2.jpg) 
