@@ -13,7 +13,7 @@
 
 - functionalitatea principala este cea de plotare a unor poze/texte.
 - functionalitati secundare:
-    - conectarea unui ecran LCD monocrom prin intermediul protocolului I2C si ce va afisa un mesaj cand plottarea este gata sau o mica animatie care indica nivelul de finalizarea al procesului
+    - conectarea unui ecran LCD monocrom prin intermediul protocolului I2C ce va afisa un mesaj cand plottarea este gata sau o mica animatie care indica nivelul de finalizarea al procesului
     - adaugarea unui led pentru pentru semnalizarea finaliarii sau care semnaleaza ca mini plotter-ul este in functiune
     - in functie de cati pini o sa mai am liberi as vrea sa incerc si sa conectez un modul wifi prin care sa pot da comezi de printare pentru diferite desene presetate
 
