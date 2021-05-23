@@ -60,7 +60,7 @@
 
 - Cu ajutorul modulului si cu aplicatia Blynk instalata pe telefon am diferite moduri de a controla manual motoarele:
     - Fie cu ajutorul a 4 butoane care incrementeaza/decrementeaza motoarele cu 2mm pe apasare si un buton pentru ridicarea si coborarea pixului
-    - Cu ajutorul a 2 slidere prin care pot sa pozitionez exact distanta la care sa fie ambele motoare si un boton care ridica si coboara pixul
+    - Cu ajutorul a 2 slidere prin care pot sa pozitionez exact distanta la care sa fie ambele motoare si un buton care ridica si coboara pixul
     - Cu ajutorul unui joystick prin care pot sa mut capul de desenare pe cele 2 axe X si Y de control si un buton de ridicare si coborare al pixului
     ![Functionare manuala](./Photos/Functionare_manuala1.jpg)
     ![Functionare manuala](./Photos/Functionare_manuala2.jpg) 
