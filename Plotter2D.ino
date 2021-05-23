@@ -1,13 +1,41 @@
 #include <Servo.h>
 #include <AFMotor.h>
 
+//LCD STUFF
+#include <Wire.h> 
+#include <LiquidCrystal_I2C.h>
+
+LiquidCrystal_I2C lcd(0x27,20,4);  // set the LCD address to 0x27 for a 16 chars and 2 line display
+
+int finishMessage = 0;
+int lcd_graph = 0;
+byte full[] = {
+  B11111,
+  B11111,
+  B11111,
+  B11111,
+  B11111,
+  B11111,
+  B11111,
+  B11111
+};
+
+
+//Wifi stuff
+#include <SoftwareSerial.h>
+
+SoftwareSerial mySerial(14, 15); //RX, TX
+
+
+
+//-----------------------
 #define LINE_BUFFER_LENGTH 512
 
 char STEP = MICROSTEP;
 
 // Servo position for Up and Down 
-const int penZUp = 120;
-const int penZDown = 50;
+const int penZUp = 50;
+const int penZDown = 140;
 
 // Servo on PWM pin 10
 const int penServoPin =10 ;
@@ -75,7 +103,7 @@ boolean verbose = false;
 void setup() {
   //  Setup
   
-  Serial.begin( 9600 );
+  Serial.begin(9600);
   
   penServo.attach(penServoPin);
   penServo.write(penZUp);
@@ -100,6 +128,27 @@ void setup() {
   Serial.print(Ymax); 
   Serial.println(" mm."); 
 
+
+  //LCD STUFF
+  lcd.init();                      // initialize the lcd 
+  lcd.createChar(0, full);
+  // Print a message to the LCD.
+  lcd.backlight();
+  lcd.setCursor(0,0);
+  lcd.print("MINI-PLOTTER 2D");
+  lcd.setCursor(1,1);
+  lcd.print("INITIALIZARE...");
+  delay(3000);
+  lcd.clear();
+  lcd.setCursor(0,0);
+  lcd.print("MINI-PLOTTER 2D");
+  lcd.setCursor(0,1);
+  lcd.print(" READY TO ROCK  ");
+
+  //Wifi stuff
+  mySerial.begin(9600);
+
+  delay(2000);
 }
 /**********************
  * void loop() - Main loop
@@ -111,6 +160,7 @@ void loop()
   
   char line[ LINE_BUFFER_LENGTH ];
   char c;
+  char b;
   int lineIndex;
   bool lineIsComment, lineSemiColon;
   lineIndex = 0;
@@ -118,9 +168,14 @@ void loop()
   lineIsComment = false;
   while (1) {
     // Serial reception - Mostly from Grbl, added semicolon support
-    while ( Serial.available()>0 ) {
-      c = Serial.read();
-      if (( c == '\n') || (c == '\r') ) {             // End of line reached
+    while ( Serial.available()>0 || mySerial.available() > 0) {
+      if (Serial.available() > 0) {
+        c = Serial.read(); 
+      } else {
+        c = mySerial.read();
+      }
+
+      if (( c == '\n') || (c == '\r')) {             // End of line reached
         if ( lineIndex > 0 ) {                        // Line is complete. Then execute!
           line[ lineIndex ] = '\0';                   // Terminate string
           if (verbose) { 
@@ -135,7 +190,7 @@ void loop()
         }
         lineIsComment = false;
         lineSemiColon = false;
-        Serial.println("ok");    
+        Serial.println("ok"); 
       } 
       else {
         if ( (lineIsComment) || (lineSemiColon) ) {   // Throw away all comment characters
@@ -216,6 +271,22 @@ void processIncomingLine( char* line, int charNB ) {
           newPos.x = atof( indexX + 1);
         }
         drawLine(newPos.x, newPos.y );
+        if (lcd_graph == 0) {
+          lcd.clear();
+          lcd.setCursor(0,0);
+          lcd.print("MINI-PLOTTER 2D");
+        }
+        if (lcd_graph != 16) {
+          lcd.setCursor(lcd_graph, 1);
+          lcd.write(0);
+          lcd_graph += 1;
+        } else {
+          lcd.clear();
+          lcd.setCursor(0,0);
+          lcd.print("MINI-PLOTTER 2D");
+          lcd_graph = 0;
+        }
+        
         //        Serial.println("ok");
         actuatorPos.x = newPos.x;
         actuatorPos.y = newPos.y;
@@ -252,6 +323,20 @@ void processIncomingLine( char* line, int charNB ) {
       		Serial.println("M18: we're done, turn drives off");
       		myStepperX.release();
       		myStepperY.release();
+
+          if (finishMessage == 0) {
+            lcd.setCursor(0,1);
+            lcd.print("TESTING DRIVERS ");
+            finishMessage = 1;
+          } else {
+            lcd_graph = 0;
+            lcd.setCursor(0,1);
+            lcd.print(" FINISH DRAWING ");
+            delay(3000);
+            lcd.setCursor(0,1);
+            lcd.print(" READY TO ROCK  "); 
+            finishMessage = 0;
+          }
       	}
         Serial.print( "Command not recognized : M");
         Serial.println( buffer );
