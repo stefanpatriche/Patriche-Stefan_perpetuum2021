@@ -64,3 +64,5 @@
     - Cu ajutorul unui joystick prin care pot sa mut capul de desenare pe cele 2 axe X si Y de control si un buton de ridicare si coborare al pixului
     ![Functionare manuala](./Photos/Functionare_manuala1.jpg)
     ![Functionare manuala](./Photos/Functionare_manuala2.jpg) 
+
+## Link cu video de prezentare: https://youtu.be/7o7zdqqS1CU
