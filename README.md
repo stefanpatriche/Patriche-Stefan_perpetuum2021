@@ -1,4 +1,4 @@
-# Titlu proiect: Mini Plotter 2D
+# Mini plotter 2D
 
 ## Componente necesare:
 
@@ -11,46 +11,52 @@
 
 ## Descriere functionalitati:
 
-- functionalitatea principala este cea de plotare a unor poze/texte.
+- functionalitatea principala este cea de desenare(plotare) a unor poze/texte.
 - functionalitati secundare:
     - conectarea unui ecran LCD monocrom prin intermediul protocolului I2C ce va afisa un mesaj cand plotarea este gata sau o mica animatie care indica nivelul de finalizarea al procesului
-    - adaugarea unui led pentru semnalizarea finalizarii sau care semnaleaza ca mini plotter-ul este in functiune
-    - in functie de cati pini o sa mai am liberi as vrea sa incerc si sa conectez un modul wifi prin care sa pot da comezi de printare pentru diferite desene presetate
+    - un mod de utilizarea manual realizata prin conectarea unui NodeMCU(Wifi module) la Arduino si prin aplicatia Blynk pe telefon, prin intermediul careia controlez msicarile mini plotter-ului
 
-## Diagrama de conectare a motoarelor la shield:
-![Diagrama de conectare](./Photos/Wiring_diagram.jpg)
+## Diagrama de conectare:
+![Diagrama de conectare](./Photos/wire_diagram.jpg)
 
+## Schema electrica:
+![Diagrama electrica](./Photos/electric_diagram.jpg)
 
-## Update 1:
+## Modalitate de realizare:
 - Pentru inceput, am desfacut cele 2 DVD Writere pentru a putea extrage motoarele pas cu pas din ele
 
-![Poza drivere](./Photos/DVD_Writere_desfacute.jpeg)
-![Poza motor pas cu pas](./Photos/Motor_pas_cu_pas.jpeg)
 ![Poza motoare pas cu pas](./Photos/Motoare.jpeg)
 
 - Dupa care am incercat si am scris un cod de test pentru a verifica functionalitatea motoarelor pas cu pas
 
 ![Test stepper](./Photos/Testare_miscare_pas_cu_pas.jpeg)
 
-- Pentru testul final am facut un test fit pentru a-mi face o idee cum o sa stea si o sa functioneze motoarele (se poate observa in video adaugat: Video_test_fit.mp4)
-
-![Test fit](./Photos/Test_fit.jpg)
-
-
 - Pentru montajul fizic m-am folosit de carcasele de DVD Writere si am adaugat ecranul lcd monocrom care sa afiseze mesaje legate de procesul de plotare
 
-![Montaj final](./Photos/Montaj_fina+ecran.jpg)
+![Test stepper](./Photos/montaj_final1.jpg)
+![Test stepper](./Photos/montaj_final2.jpg)
 
-- Am folosit si un modul wifi (NodeMCU) care se foloseste de protocolul de comunicatie UART pentru a comunica cu Arduino si a primi comenzi suplimentare pentru folosirea manuala
+- Am folosit si un modul wifi (NodeMCU) care se foloseste de protocolul de comunicatie UART pentru a comunica cu Arduino si a transmite comenzi suplimentare pentru utilizarea manuala
 
-![Modul Wifi](./Photos/Modul_NodeMCU.jpg)
-
+![Modul Wifi](./Photos/NodeMCU+Shield.jpg)
 
 ## Mod de functionare:
 
 ### Modul de functionare automat:
 
+- Am folosit programul Inkscape pentru a transforma orice poza sau text in cod GCODE pentru a putea fi interpretat de plotter.
+
+![Program trimitere info](./Photos/Inkscape.jpg)
+
 - Am folosit un program care comunica cu Arduino pe baza portului serial prin care este conectat cu calculatorul, acesta citeste un fisier GCODE (care contine informatiile pentru a misca motoarele) si trimite linie cu linie comenzile catre Arduino care le interpreteaza si misca motoarele in functie de acestea
+
+- Comenzile care sunt interpretate sunt urmatoarele
+    - G1 pentru miscare (ex: G1 X60 Y30 | G1 X30 Y50)
+    - G4 P300 (asteapta 150ms)
+    - M300 S30 (da pixul in jos)
+    - M300 S50 (da pixul in sus)
+    - Elimina orice incepe cu  '('
+    - Elimina oricare alta comanda
 
 ![Program trimitere info](./Photos/Gctrl.jpg)
 
@@ -65,4 +71,8 @@
     ![Functionare manuala](./Photos/Functionare_manuala1.jpg)
     ![Functionare manuala](./Photos/Functionare_manuala2.jpg) 
 
-## Link cu video de prezentare: https://youtu.be/7o7zdqqS1CU
+## Rezultat final:
+![Rezultat](./Photos/rezultat.jpg) 
+
+
+## Link youtube: [Video de prezentare](https://youtu.be/GmLkTNzcbe0)
